@@ -1,4 +1,5 @@
 <template>
+<!-- 定义form列表的type，（input,switch,data-picker,select,option） -->
   <el-form ref="form" label-width="100px" :model="form" :inline="inline">
       <el-form-item v-for="item in formLabel" :key="item.label" :label="item.label">
           <el-input

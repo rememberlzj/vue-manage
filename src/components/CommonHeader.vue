@@ -1,14 +1,25 @@
 <template>
   <header>
     <div class="l-content">
-      <el-button round @click="handleMenu" icon="el-icon-menu" size="mini"></el-button>
+      <el-button
+        round
+        @click="handleMenu"
+        icon="el-icon-menu"
+        size="mini"
+      ></el-button>
       <!-- <h3 style="color: #fff">首页</h3> -->
+      <!-- 面包屑功能区 -->
       <el-breadcrumb separator-class="el-icon-arrow-right" separator="/">
-        <el-breadcrumb-item v-for="item in tags" :key="item.path" :to="{ path: item.path }">
-        {{item.label}}
+        <el-breadcrumb-item
+          v-for="item in tags"
+          :key="item.path"
+          :to="{ path: item.path }"
+        >
+          {{ item.label }}
         </el-breadcrumb-item>
       </el-breadcrumb>
     </div>
+    <!-- header右侧个人中心以及退出部分 -->
     <div class="r-content">
       <el-dropdown trigger="click" size="mini">
         <span>
@@ -24,7 +35,7 @@
 </template>
 
 <script>
-import {mapState,mapMutations} from 'vuex'
+import { mapState } from "vuex";
 
 export default {
   name: "CommonHeader",
@@ -34,20 +45,23 @@ export default {
     };
   },
   methods: {
-      handleMenu(){
-          this.$store.commit('collapseMenu')
-      },
-      logOut(){
-        this.$store.commit('clearToken')
-        this.$store.commit('clearMenu')
-        this.$router.push('/login')
-      }
+    //实现侧边栏的展开与折叠
+    handleMenu() {
+      //collapseMenu => store/tab/collapseMenu
+      this.$store.commit("collapseMenu");
+    },
+    logOut() {
+      this.$store.commit("clearToken");
+      this.$store.commit("clearMenu");
+      this.$router.push("/login");
+    },
   },
   computed: {
+    //引入vuex中tabList列表
     ...mapState({
-      tags: state => state.tab.tabsList
-    })
-  }
+      tags: (state) => state.tab.tabsList,
+    }),
+  },
 };
 </script>
 
@@ -59,17 +73,17 @@ header {
   align-items: center;
 }
 .l-content {
-    display: flex;
-    align-items: center;
-    .el-button{
-        margin-right: 20px;
-    }
+  display: flex;
+  align-items: center;
+  .el-button {
+    margin-right: 20px;
+  }
 }
 .r-content {
-    .user {
-        width: 40px;
-        height: 40px;
-        border-radius: 50%;
-    }
+  .user {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+  }
 }
 </style>

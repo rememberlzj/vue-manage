@@ -1,6 +1,8 @@
 <template>
   <div class="common-table">
-    <el-table :data="tableData" height="90%" stripe>
+    <!-- stripe：斑马纹显示表格 -->
+    <el-table :data="tableData" height="90%" stripe v-loading="config.loading">
+      <!-- - show-overflow-tooltip:超出一行的内容点点点显示 -->
       <el-table-column
         show-overflow-tooltip
         v-for="item in tableLabel"
@@ -19,6 +21,11 @@
         </template>
       </el-table-column>
     </el-table>
+     <!-- 设置分页
+        - :total="config.total":设置总页数
+        - :current-page.sync="config.page"：设置当前页数
+        - @current-change：绑定当前页事件，获取用户选择的页数
+      -->
     <el-pagination
       class="pager"
       layout="prev,pager,next"
@@ -33,6 +40,7 @@
 <script>
 export default {
   name: "CommonTable",
+  // 接收父组件传来的数据
   props: {
     tableData: Array,
     tableLabel: Array,
@@ -42,12 +50,15 @@ export default {
     return {};
   },
   methods: {
+     // 向父组件传入编辑事件
     handelEdit(row) {
       this.$emit("edit", row);
     },
+     // 向父组件传入删除事件
     handelDelete(row) {
       this.$emit("del", row);
     },
+    //改变当前页数时，向父组件发送当前页数
     changePage(page) {
       this.$emit("changePage", page);
     },

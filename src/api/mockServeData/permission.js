@@ -5,6 +5,8 @@ export default {
         const { username,password } = JSON.parse(config.body)
         //先判断用户是否存在
         //判断账号，密码是否对应
+
+        //这里是用户登录显示的界面
         if( username === 'admin' && password === 'admin'){
             return {
                 code: 20000,
@@ -56,6 +58,7 @@ export default {
                     message: '获取成功'
                 }
             }
+        //这里是管理员登录显示的界面 
         } else if (username === 'xiaoxiao' && password === 'xiaoxiao') {
             return {
                 code: 20000,
